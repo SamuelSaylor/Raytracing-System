@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <math.h>
+#include "vec3.h"
 
 int main(){
     int image_height = 256;
