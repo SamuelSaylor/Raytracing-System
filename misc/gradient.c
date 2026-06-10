@@ -22,8 +22,8 @@ int main(){
         }
     }
 
-    //gcc main.c -o main
-    //./main > display.ppm
+    //gcc misc/gradient.c -o gradient
+    //./gradient > display.ppm
 
     return 0;
 }
