@@ -2,10 +2,26 @@
 #include <math.h>
 #include "vec3.h"
 #include "color.h"
+#include "ray.h"
+
+Color ray_color(Ray r){return (Color){0,0,0};}
 
 int main(){
-    int image_height = 256;
+
+    double aspect_ratio = 16.0/9.0;
     int image_width = 256;
+
+    int image_height = (int)(image_width / aspect_ratio);
+    if(image_height < 1){image_height = 1;}
+
+    //camera values
+    double focal_length = 0.0;
+    double viewport_height = 0.0;
+    double viewport_width = viewport_height*((double)(image_width/image_height));
+    Vec3 centerpoint = {0,0,0};
+
+    Vec3 viewport_horizontal = {viewport_width,0,0};
+    Vec3 viewport_vertical = {0,viewport_height*-1.0,0};
 
     //standard ppm viewer
     printf("P3\n%d %d\n255\n",image_width,image_height);
