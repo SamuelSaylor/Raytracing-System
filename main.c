@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "vec3.h"
+#include "color.h"
 
 int main(){
     int image_height = 256;
@@ -15,9 +16,11 @@ int main(){
             double g = (double)i / (image_height-1);
             double b = 0.0;
 
-            int ir = (int)(255.999*r);
-            int ig = (int)(255.999*g);
-            int ib = (int)(255.999*b);
+            Color pixel_color = {r,g,b};
+
+            int ir = (int)(255.999*pixel_color.x);
+            int ig = (int)(255.999*pixel_color.y);
+            int ib = (int)(255.999*pixel_color.z);
 
             //this is printing each row of pixels for colors. expect a sweet gradien t
             printf("%d %d %d\n",ir,ig,ib);
