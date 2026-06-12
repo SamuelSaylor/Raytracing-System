@@ -7,7 +7,7 @@ This project is a raytracing system that puts out full on shapes on display in a
 
 Pictured below is what the current product is. Rays of light interact with the spherical object to create the hue you see here.
 
-<img width="256" height="144" alt="image" src="https://github.com/user-attachments/assets/99cd638a-9c6f-42fc-9705-58b680f67a83" />
+<img width="256" height="144" alt="image" src="https://github.com/user-attachments/assets/2a0d77e3-1730-4ef6-abb6-a0b1fba27c5e" />
 
 ### Additionally a Vec3 C Library
 Additionally I had to create a Vector 3 Library with many C-friendly features, as many native functionalities in C++ are not present in C. Here's a breakdown of every function below.
