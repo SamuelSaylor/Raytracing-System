@@ -6,6 +6,11 @@
 #include "color.h"
 #include "ray.h"
 
+//Choose whatever colors you want here, scale 0-1
+int red = 1; 
+int green = 0;
+int blue = 0.2;
+
 /*
 a=d⋅d
 b=−2d⋅(C−Q)
@@ -29,7 +34,7 @@ Color ray_color(Ray r){
     double check = hit_sphere((Vec3){0,0,-1},0.5,r);
     if(check>0.0){
         Vec3 ret = vec3_normalize(vec3_sub(ray_at(r, check), (Vec3){0, 0, -1}));
-        return vec3_scale(vec3_add(ret, (Vec3){1, 1, 1}), 0.5);
+        return vec3_scale(vec3_add(ret, (Vec3){red, green, blue}), 0.5);
     }
 
     Vec3 unit_direction = vec3_normalize(r.direction);
