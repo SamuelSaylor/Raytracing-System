@@ -11,7 +11,7 @@ a=d⋅d
 b=−2d⋅(C−Q)
 c=(C−Q)⋅(C−Q)−r^2
 */
-bool hit_sphere(Vec3 center, double radius, Ray r){
+double hit_sphere(Vec3 center, double radius, Ray r){
     Vec3 cen = vec3_sub(center,r.origin);
     
     double a = vec3_dot(r.direction,r.direction);
@@ -20,13 +20,16 @@ bool hit_sphere(Vec3 center, double radius, Ray r){
 
     double ret = b*b - 4*a*c;
 
-    return (ret>=0);
+    if(ret<0){return -1.0;}
+    else{return (-b - sqrt(ret))/(2.0*a);}
 }
 
 //blendedValue=(1−a)⋅startValue+a⋅endValue
 Color ray_color(Ray r){
-    if(hit_sphere((Vec3){0,0,-1},0.5,r)){
-        return (Color){1,0,0};
+    double check = hit_sphere((Vec3){0,0,-1},0.5,r);
+    if(check>0.0){
+        Vec3 ret = vec3_normalize(vec3_sub(ray_at(r, check), (Vec3){0, 0, -1}));
+        return vec3_scale(vec3_add(ret, (Vec3){1, 1, 1}), 0.5);
     }
 
     Vec3 unit_direction = vec3_normalize(r.direction);
