@@ -80,7 +80,7 @@ int main(){
         }
     }
 
-    //gcc main.c vec3.c ray.c -o raytracer -lm
+    //gcc redsphere.c vec3.c ray.c -o raytracer -lm
     //./main > display.ppm
 
     return 0;
