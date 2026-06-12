@@ -4,7 +4,12 @@
 #include "color.h"
 #include "ray.h"
 
-Color ray_color(Ray r){return (Color){0,0,0};}
+//blendedValue=(1−a)⋅startValue+a⋅endValue
+Color ray_color(Ray r){
+    Vec3 unit_direction = vec3_normalize(r.direction);
+    double a = 0.5 * (unit_direction.y + 1.0);
+    return vec3_add(vec3_scale((Vec3){1.0, 1.0, 1.0}, 1.0 - a), vec3_scale((Vec3){0.5, 0.7, 1.0}, a));
+}
 
 int main(){
 
@@ -15,31 +20,40 @@ int main(){
     if(image_height < 1){image_height = 1;}
 
     //camera values
-    double focal_length = 0.0;
-    double viewport_height = 0.0;
-    double viewport_width = viewport_height*((double)(image_width/image_height));
+    double focal_length = 1.0;
+    double viewport_height = 2.0;
+    double viewport_width = viewport_height * ((double)image_width / (double)image_height);
     Vec3 centerpoint = {0,0,0};
 
     Vec3 viewport_horizontal = {viewport_width,0,0};
     Vec3 viewport_vertical = {0,viewport_height*-1.0,0};
+
+    Vec3 horizontal_delta = {viewport_horizontal.x/image_width, viewport_horizontal.y/image_width, viewport_horizontal.z/image_width};
+    Vec3 vertical_delta = {viewport_vertical.x/image_height, viewport_vertical.y/image_height, viewport_vertical.z/image_height};
+
+    Vec3 leftcorner = vec3_sub(
+        vec3_sub(
+            vec3_sub(centerpoint, (Vec3){0, 0, focal_length}),
+            vec3_scale(viewport_horizontal, 0.5)
+        ),
+        vec3_scale(viewport_vertical, 0.5)
+    );
+    
+    Vec3 pixel00_loc = vec3_add(leftcorner, vec3_scale(vec3_add(horizontal_delta, vertical_delta), 0.5));
 
     //standard ppm viewer
     printf("P3\n%d %d\n255\n",image_width,image_height);
 
     for(int i = 0; i < image_height; i++){
         for(int x = 0; x < image_width; x++){
-            double r = (double)x / (image_width-1);
-            double g = (double)i / (image_height-1);
-            double b = 0.0;
+            Vec3 pixel_center = vec3_add(vec3_add(pixel00_loc, vec3_scale(horizontal_delta, x)), vec3_scale(vertical_delta, i));
+            Vec3 ray_direction = vec3_sub(pixel_center, centerpoint);
+            Ray r = ray_create(centerpoint, ray_direction);
 
-            Color pixel_color = {r,g,b};
-
-            int ir = (int)(255.999*pixel_color.x);
-            int ig = (int)(255.999*pixel_color.y);
-            int ib = (int)(255.999*pixel_color.z);
+            Color pixel_color = ray_color(r);
 
             //this is printing each row of pixels for colors. expect a sweet gradien t
-            printf("%d %d %d\n",ir,ig,ib);
+            write_color(stdout, pixel_color);
         }
     }
 
