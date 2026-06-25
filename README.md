@@ -1,6 +1,6 @@
 <table><tr>
-<td><img src="./30projects_logo.svg" width="360"/></td>
-<td><h1>Day 7/30 — Ray Tracing System</h1></td>
+<td><img src="./15projects_logo.svg" width="360"/></td>
+<td><h1>Day 7/15 — Ray Tracing System</h1></td>
 </tr></table>
 
 This project is a raytracing system that puts out full on shapes on display in a .PPM file, written in C. Included inside are multiple different "phases" of development, and much of the concepts came from Peter Shirley's "Raytracing in One Weekend" book! While at its current stage its barebones, it can easily be expanded upon and might be something I touch up one day.
