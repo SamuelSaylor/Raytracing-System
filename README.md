@@ -1,5 +1,5 @@
 <table><tr>
-<td><img src="./30projects_logo.svg" width="360"/></td>
+<td><img src="./15projects_logo.svg" width="360"/></td>
 <td><h1>Day 7/10 — Ray Tracing System</h1></td>
 </tr></table>
 
